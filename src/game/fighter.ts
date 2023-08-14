@@ -16,6 +16,7 @@ import {
 export type FighterProps = {
     keyBindings: KeyBindings;
     directionFaced: DirectionFaced;
+    healthOffset: Coords;
 } & SpriteProps;
 
 export interface Keys {
@@ -34,6 +35,10 @@ export class Fighter extends Sprite {
     public readonly width: number = 100;
     
     public readonly height: number = 150;
+    
+    public readonly healthBarWidth: number = 150;
+    
+    public readonly healthBarHeight: number = 15;
     
     public readonly attackBoxWidth: number = 100;
     
@@ -94,6 +99,14 @@ export class Fighter extends Sprite {
     public setHealth = (health: number): void => {
         this.health = health;
     };
+    
+    private healthBarOffset: Coords;
+
+    public getHealthBarOffset = (): Coords => this.healthBarOffset;
+
+    public setHealthBarOffset = (healthOffset: Coords): void => {
+        this.healthBarOffset = healthOffset;
+    };
 
     private attackDamage: number = defaultAttackDamage;
 
@@ -111,10 +124,11 @@ export class Fighter extends Sprite {
         this.isDead = isDead;
     };
     
-    constructor({ keyBindings, directionFaced, ...spriteProps }: FighterProps) {
+    constructor({ keyBindings, directionFaced, healthOffset, ...spriteProps }: FighterProps) {
         super(spriteProps);
         this.setKeyBindings(keyBindings);
         this.setDirectionFaced(directionFaced);
+        this.setHealthBarOffset(healthOffset);
         this.bindListeners();
         console.log('Fighter loaded');
     };
@@ -197,6 +211,12 @@ export class Fighter extends Sprite {
         if (!this.getIsDead()) {
             this.animateFrames();
         }
+        this.getContext().fillRect(
+            this.getPosition().x + this.getHealthBarOffset().x,
+            this.getPosition().y + this.getHealthBarOffset().y,
+            this.healthBarWidth,
+            this.healthBarHeight,
+        );
         
         // attack box rect for debugging
         // this.getContext().fillRect(

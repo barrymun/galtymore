@@ -53,10 +53,10 @@ export class Engine extends Base {
         // this.setBackground(background);
         
         const player: Fighter = this.createFighter({
-            // position: { x: defaultCanvasWidth / 4, y: defaultCanvasHeight / 4 },
             position: { x: 20, y: 200 },
             keyBindings: playerKeyBindings,
             directionFaced: Direction.Right,
+            healthOffset: { x: 140, y: 50 },
             sprites: {
                 idle: {
                     imageSrc: 'assets/img/player/idle.png',
@@ -80,15 +80,14 @@ export class Engine extends Base {
                 },
             },
             scale: 2.0,
-            // offset: { x: 215, y: 157 },
         });
         this.setPlayer(player);
         
         const enemy: Fighter = this.createFighter({
-            // position: { x: (defaultCanvasWidth / 4) * 3, y: 0 },
             position: { x: 500, y: 0 },
             keyBindings: enemyKeyBindings,
             directionFaced: Direction.Left,
+            healthOffset: { x: 190, y: 100 },
             sprites: {
                 idle: {
                     imageSrc: 'assets/img/enemy/idle.png',
@@ -112,8 +111,6 @@ export class Engine extends Base {
                 },
             },
             scale: 3.5,
-            // offset: { x: 215, y: 172 },
-            // offset: { x: 0, y: 40 },
             shouldFlip: true,
         });
         this.setEnemy(enemy);
