@@ -133,7 +133,7 @@ export class Fighter extends Sprite {
         console.log('Fighter loaded');
     };
 
-    public isDying = (): boolean => this.getHealth() <= 0;
+    public isDying = (): boolean => this.getHealth() <= 0 && !this.getIsDead();
 
     private switchSpriteState = (state: SpriteAnimation): void => {
         // don't switch if dying
@@ -211,12 +211,26 @@ export class Fighter extends Sprite {
         if (!this.getIsDead()) {
             this.animateFrames();
         }
-        this.getContext().fillRect(
+        
+        this.getContext().fillStyle = Colour.Green;
+        this.getContext().roundRect(
             this.getPosition().x + this.getHealthBarOffset().x,
             this.getPosition().y + this.getHealthBarOffset().y,
             this.healthBarWidth,
             this.healthBarHeight,
+            [2, 2, 2, 2],
         );
+        this.getContext().fill();
+        
+        this.getContext().strokeStyle = Colour.Black;
+        this.getContext().roundRect(
+            this.getPosition().x + this.getHealthBarOffset().x,
+            this.getPosition().y + this.getHealthBarOffset().y,
+            this.healthBarWidth,
+            this.healthBarHeight,
+            [2, 2, 2, 2],
+        );
+        this.getContext().stroke();
         
         // attack box rect for debugging
         // this.getContext().fillRect(

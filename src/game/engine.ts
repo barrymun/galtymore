@@ -179,7 +179,7 @@ export class Engine extends Base {
         const animationRequestId = requestAnimationFrame(this.run);
         this.setAnimationRequestId(animationRequestId);
 
-        this.getContext().fillStyle = Colour.Black;
+        this.getContext().fillStyle = Colour.White;
         this.getContext().fillRect(0, 0, this.canvas.width, this.canvas.height);
         
         // this.getBackground().update();
