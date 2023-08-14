@@ -1,0 +1,64 @@
+.interface-cntr {
+    position: relative;
+}
+
+.interface {
+    position: absolute;
+    width: calc(100% - 32px);
+    top: 8px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 8px 16px;
+}
+
+.health {
+    height: 30px;
+    flex: 1;
+    
+    border-radius: 0px 2px 2px 0px;
+    border: 2px solid white;
+    border-left: none;
+
+    background-color: red;
+}
+
+.health:nth-of-type(1) {
+    display: flex;
+    justify-content: flex-end;
+
+    border-radius: 2px 0px 0px 2px;
+    border-left: 2px solid white;
+    border-right: none;
+}
+
+#game-timer {
+    background-color: black;
+    height: 50px;
+    width: 80px;
+
+    border: 2px solid white;
+    border-radius: 2px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 28px;
+}
+
+#player-health,
+#enemy-health {
+    width: 100%;
+    height: 100%;
+    background-color: #818cf8;
+}
+
+.dialog {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+}
