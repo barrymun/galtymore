@@ -1,7 +1,5 @@
 export abstract class Base {
     public readonly canvas = document.getElementById('c')! as HTMLCanvasElement;
-
-    public readonly gameTimer = document.getElementById('game-timer')! as HTMLDivElement;
     
     public readonly playerHealth = document.getElementById('player-health')! as HTMLDivElement;
     

@@ -14,10 +14,8 @@ import {
 } from "utils";
 
 export type FighterProps = {
-    velocity: Coords; 
     keyBindings: KeyBindings;
     directionFaced: DirectionFaced;
-    attackBoxDimensions: AttackBoxDimensions;
 } & SpriteProps;
 
 export interface Keys {
@@ -73,36 +71,6 @@ export class Fighter extends Sprite {
         this.keys = keys;
     };
 
-    private attackBox: AttackBox = {
-        position: this.getPosition(),
-    };
-
-    public getAttackBox = (): AttackBox => this.attackBox;
-
-    private setAttackBox = (attackBox: AttackBox): void => {
-        this.attackBox = attackBox;
-    };
-
-    private attackBoxDimensions: AttackBoxDimensions = {
-        offset: { x: 0, y: 0 },
-        width: this.attackBoxWidth,
-        height: this.attackBoxHeight,
-    };
-
-    public getAttackBoxOffset = (): AttackBoxDimensions => this.attackBoxDimensions;
-
-    private setAttackBoxOffset = (attackBoxDimensions: AttackBoxDimensions): void => {
-        this.attackBoxDimensions = attackBoxDimensions;
-    };
-    
-    private velocity: Coords;
-
-    public getVelocity = (): Coords => this.velocity;
-
-    public setVelocity = (velocity: Coords): void => {
-        this.velocity = velocity;
-    };
-
     private isAttacking: boolean = false;
 
     public getIsAttacking = (): boolean => this.isAttacking;
@@ -143,19 +111,13 @@ export class Fighter extends Sprite {
         this.isDead = isDead;
     };
     
-    constructor({ velocity, keyBindings, directionFaced, attackBoxDimensions, ...spriteProps }: FighterProps) {
+    constructor({ keyBindings, directionFaced, ...spriteProps }: FighterProps) {
         super(spriteProps);
-        this.setVelocity(velocity);
         this.setKeyBindings(keyBindings);
         this.setDirectionFaced(directionFaced);
-        this.setAttackBoxOffset(attackBoxDimensions);
         this.bindListeners();
         console.log('Fighter loaded');
     };
-
-    private isJumping = (): boolean => this.getVelocity().y < 0;
-    
-    private isFalling = (): boolean => this.getVelocity().y > 0;
 
     public isDying = (): boolean => this.getHealth() <= 0;
 
@@ -235,21 +197,6 @@ export class Fighter extends Sprite {
         if (!this.getIsDead()) {
             this.animateFrames();
         }
-        
-        this.setPosition({
-            ...this.getPosition(),
-            x: this.getPosition().x + this.getVelocity().x,
-            y: this.getPosition().y + this.getVelocity().y,
-        });
-        this.setAttackBox({
-            position: {
-                ...this.getPosition(),
-                x: this.getDirectionFaced() === Direction.Right 
-                    ? this.getPosition().x + this.getAttackBoxOffset().offset.x
-                    : this.getPosition().x - this.width - this.getAttackBoxOffset().offset.x,
-                y: this.getPosition().y + (this.height / 3),
-            },
-        });
         
         // attack box rect for debugging
         // this.getContext().fillRect(

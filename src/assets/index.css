@@ -1,8 +1,8 @@
-.interface-cntr {
+.container {
     position: relative;
 }
 
-.interface {
+/* .interface {
     position: absolute;
     width: calc(100% - 32px);
     top: 8px;
@@ -34,22 +34,6 @@
     border-right: none;
 }
 
-#game-timer {
-    background-color: black;
-    height: 50px;
-    width: 80px;
-
-    border: 2px solid white;
-    border-radius: 2px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: white;
-    font-size: 28px;
-}
-
 #player-health,
 #enemy-health {
     width: 100%;
@@ -61,4 +45,4 @@
     position: absolute;
     width: 200px;
     height: 200px;
-}
+} */
