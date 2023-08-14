@@ -188,7 +188,7 @@ export class Fighter extends Sprite {
         }
     };
 
-    private attack(): void {
+    public attack(): void {
         this.setIsAttacking(true);
         this.switchSpriteState('attack');
     };
@@ -269,53 +269,15 @@ export class Fighter extends Sprite {
         this.switchSpriteState('idle');
     };
 
-    private handleKeydown = (event: KeyboardEvent) => {
-        switch (event.key) {
-            case this.getKeyBindings().right:
-                this.setKeys({ ...this.getKeys(), right: { pressed: true } });
-                break;
-            case this.getKeyBindings().left:
-                this.setKeys({ ...this.getKeys(), left: { pressed: true } });
-                break;
-            case this.getKeyBindings().jump:
-                this.setKeys({ ...this.getKeys(), jump: { pressed: true } });
-                break;
-            case this.getKeyBindings().attack:
-                this.attack();
-            default:
-                break;
-        }
-    };
-
-    private handleKeyup = (event: KeyboardEvent) => {
-        switch (event.key) {
-            case this.getKeyBindings().right:
-                this.setKeys({ ...this.getKeys(), right: { pressed: false } });
-                break;
-            case this.getKeyBindings().left:
-                this.setKeys({ ...this.getKeys(), left: { pressed: false } });
-                break;
-            case this.getKeyBindings().jump:
-                this.setKeys({ ...this.getKeys(), jump: { pressed: false } });
-                break;
-            default:
-                break;
-        }
-    };
-
     private handleUnload = (_event: Event) => {
         this.destroy();
     };
 
     private bindListeners = (): void => {
-        window.addEventListener('keydown', this.handleKeydown);
-        window.addEventListener('keyup', this.handleKeyup);
         window.addEventListener('unload', this.handleUnload);
     };
 
     public destroy = (): void => {
-        window.removeEventListener('keydown', this.handleKeydown);
-        window.removeEventListener('keyup', this.handleKeyup);
         window.removeEventListener('unload', this.handleUnload);
     };
 };

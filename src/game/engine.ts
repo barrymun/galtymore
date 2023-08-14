@@ -118,9 +118,9 @@ export class Engine extends Base {
 
     private setCanvasSize = (): void => {
         // const width: number = window.innerWidth;
-        // const height: number = window.innerHeight;
+        const height: number = window.innerHeight;
         const width: number = defaultCanvasWidth;
-        const height: number = defaultCanvasHeight;
+        // const height: number = defaultCanvasHeight;
         
         this.canvas.width = width;
         this.canvas.height = height;
@@ -197,12 +197,18 @@ export class Engine extends Base {
         window.location.reload();
     };
 
+    private handleAttackBtnClick = (): void => {
+        this.getPlayer().attack();
+        this.getEnemy().takeHit(this.getPlayer().getDamage());
+    };
+
     private handleUnload = (_event: Event) => {
         this.destroy();
     };
 
     private bindListeners = (): void => {
         this.gameOverBtn.addEventListener('click', this.handleGameOverBtnClick);
+        this.attackBtn.addEventListener('click', this.handleAttackBtnClick);
         
         window.addEventListener('resize', this.setCanvasSize);
         window.addEventListener('unload', this.handleUnload);
@@ -210,6 +216,7 @@ export class Engine extends Base {
 
     private destroy = (): void => {
         this.gameOverBtn.removeEventListener('click', this.handleGameOverBtnClick);
+        this.attackBtn.removeEventListener('click', this.handleAttackBtnClick);
         
         window.removeEventListener('resize', this.setCanvasSize);
         window.removeEventListener('unload', this.handleUnload);

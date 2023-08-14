@@ -29,16 +29,21 @@
         <link rel="stylesheet" type="text/css" href="index.css" /> 
     </head>
     <body>
-        <div class="container">
-
-            <!-- TODO: rework -->
-            <dialog id="game-over-dialog" class="dialog">
-                <div id="game-over-title"></div>
-                <button id="game-over-btn">Reset Game</button>
-            </dialog>
-
+        <div class="canvas-cntr">
             <canvas id="c"></canvas>
         </div>
+
+        <div id="main-menu">
+            <button id="attack">
+                Attack
+            </button>
+        </div>
+
+        <!-- TODO: rework -->
+        <dialog id="game-over-dialog" class="dialog">
+            <div id="game-over-title"></div>
+            <button id="game-over-btn">Reset Game</button>
+        </dialog>
         
         <script src="bundle.js"></script>
     </body>
