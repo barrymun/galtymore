@@ -1,10 +1,6 @@
 export abstract class Base {
     public readonly canvas = document.getElementById('c')! as HTMLCanvasElement;
     
-    public readonly playerHealth = document.getElementById('player-health')! as HTMLDivElement;
-    
-    public readonly enemyHealth = document.getElementById('enemy-health')! as HTMLDivElement;
-    
     public readonly gameOverDialog = document.getElementById('game-over-dialog')! as HTMLDialogElement;
     
     public readonly gameOverTitle = document.getElementById('game-over-title')! as HTMLDivElement;
