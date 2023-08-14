@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { Base } from "game/base";
 import { Fighter, FighterProps } from "game/fighter";
 import { Sprite } from "game/sprite";
-import { Colour, Direction, defaultCanvasHeight, defaultCanvasWidth, defaultTimer, enemyKeyBindings, playerKeyBindings } from "utils";
+import { Colour, Direction, defaultCanvasHeight, defaultCanvasWidth, enemyKeyBindings, playerKeyBindings } from "utils";
 
 export class Engine extends Base {
     private animationRequestId: number;

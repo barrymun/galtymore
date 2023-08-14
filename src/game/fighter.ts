@@ -1,16 +1,12 @@
 import { Sprite, SpriteProps } from "game/sprite";
 import { 
-    AttackBox, 
-    AttackBoxDimensions, 
     Colour, 
     Coords, 
-    Direction, 
     DirectionFaced, 
     KeyBindings, 
     SpriteAnimation, 
     defaultAttackDamage, 
     defaultHealth,
-    groundOffset, 
 } from "utils";
 
 export type FighterProps = {
@@ -38,7 +34,9 @@ export class Fighter extends Sprite {
     
     public readonly healthBarWidth: number = 150;
     
-    public readonly healthBarHeight: number = 15;
+    public readonly healthBarHeight: number = 20;
+    
+    public readonly remainingHealthIndicatorWidth: number = 30;
     
     public readonly attackBoxWidth: number = 100;
     
@@ -211,34 +209,62 @@ export class Fighter extends Sprite {
         if (!this.getIsDead()) {
             this.animateFrames();
         }
+
+        this.getContext().beginPath();
+        this.getContext().fillStyle = Colour.Grey;
+        this.getContext().roundRect(
+            this.getPosition().x + this.getHealthBarOffset().x - this.remainingHealthIndicatorWidth,
+            this.getPosition().y + this.getHealthBarOffset().y,
+            this.remainingHealthIndicatorWidth,
+            this.healthBarHeight,
+            [2, 0, 0, 2],
+        );
+        this.getContext().fill();
+        this.getContext().textAlign = 'center';
+        this.getContext().textBaseline = 'middle';
+        this.getContext().fillStyle = Colour.White;
+        this.getContext().fillText(
+            `${this.getHealth()}%`, 
+            (this.getPosition().x + this.getHealthBarOffset().x - this.remainingHealthIndicatorWidth) + (this.remainingHealthIndicatorWidth / 2),
+            (this.getPosition().y + this.getHealthBarOffset().y + (this.healthBarHeight / 2)),
+        );
+        this.getContext().closePath();
+
+        this.getContext().beginPath();
+        this.getContext().strokeStyle = Colour.Grey;
+        this.getContext().roundRect(
+            this.getPosition().x + this.getHealthBarOffset().x - this.remainingHealthIndicatorWidth,
+            this.getPosition().y + this.getHealthBarOffset().y,
+            this.remainingHealthIndicatorWidth,
+            this.healthBarHeight,
+            [2, 0, 0, 2],
+        );
+        this.getContext().stroke();
+        this.getContext().closePath();
         
+        this.getContext().beginPath();
         this.getContext().fillStyle = Colour.Green;
         this.getContext().roundRect(
             this.getPosition().x + this.getHealthBarOffset().x,
             this.getPosition().y + this.getHealthBarOffset().y,
             this.healthBarWidth,
             this.healthBarHeight,
-            [2, 2, 2, 2],
+            [0, 2, 2, 0],
         );
         this.getContext().fill();
+        this.getContext().closePath();
         
-        this.getContext().strokeStyle = Colour.Black;
+        this.getContext().beginPath();
+        this.getContext().strokeStyle = Colour.Grey;
         this.getContext().roundRect(
             this.getPosition().x + this.getHealthBarOffset().x,
             this.getPosition().y + this.getHealthBarOffset().y,
             this.healthBarWidth,
             this.healthBarHeight,
-            [2, 2, 2, 2],
+            [0, 2, 2, 0],
         );
         this.getContext().stroke();
-        
-        // attack box rect for debugging
-        // this.getContext().fillRect(
-        //     this.getAttackBox().position.x,
-        //     this.getAttackBox().position.y,
-        //     this.getAttackBoxOffset().width,
-        //     this.getAttackBoxOffset().height,
-        // );
+        this.getContext().closePath();
 
         this.switchSpriteState('idle');
     };
