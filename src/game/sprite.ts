@@ -1,5 +1,5 @@
 import { Base } from "game/base";
-import { Coords, SpriteAnimation } from "utils";
+import { Coords, SpriteAnimation, Sprites } from "utils/sprite";
 
 interface BaseSpriteProps {
     position: Coords; 
@@ -8,14 +8,6 @@ interface BaseSpriteProps {
     heldFrames?: number;
     offset?: Coords;
     shouldFlip?: boolean;
-};
-
-type Sprites = {
-    [key in SpriteAnimation]: {
-        imageSrc: string;
-        flippedImageSrc: string;
-        totalFrames: number;
-    };
 };
 
 type ImageSprites = {

@@ -1,4 +1,4 @@
-import { Direction } from "utils";
+import { Direction } from "utils/constants";
 
 export interface Coords {
     x: number;
@@ -18,3 +18,11 @@ export interface AttackBoxDimensions {
 export type DirectionFaced = Direction.Left | Direction.Right;
 
 export type SpriteAnimation = 'idle' | 'attack' | 'takeHit' | 'die';
+
+export type Sprites = {
+    [key in SpriteAnimation]: {
+        imageSrc: string;
+        flippedImageSrc: string;
+        totalFrames: number;
+    };
+};

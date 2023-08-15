@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { Base } from "game/base";
 import { Fighter, FighterProps } from "game/fighter";
 import { Sprite } from "game/sprite";
-import { Colour, Direction, defaultCanvasHeight, defaultCanvasWidth } from "utils";
+import { Colour, Direction, defaultCanvasWidth, enemySprites, playerSprites } from "utils/constants";
 
 export class Engine extends Base {
     private animationRequestId: number;
@@ -56,28 +56,7 @@ export class Engine extends Base {
             position: { x: 20, y: 200 },
             directionFaced: Direction.Right,
             healthOffset: { x: 140, y: 50 },
-            sprites: {
-                idle: {
-                    imageSrc: 'assets/img/player/idle.png',
-                    flippedImageSrc: 'assets/img/player/idle-flipped.png',
-                    totalFrames: 6,
-                },
-                attack: {
-                    imageSrc: 'assets/img/player/attack-1.png',
-                    flippedImageSrc: 'assets/img/player/attack-1-flipped.png',
-                    totalFrames: 8,
-                },
-                takeHit: {
-                    imageSrc: 'assets/img/player/take-hit.png',
-                    flippedImageSrc: 'assets/img/player/take-hit-flipped.png',
-                    totalFrames: 4,
-                },
-                die: {
-                    imageSrc: 'assets/img/player/death.png',
-                    flippedImageSrc: 'assets/img/player/death-flipped.png',
-                    totalFrames: 7,
-                },
-            },
+            sprites: playerSprites,
             scale: 2.0,
         });
         this.setPlayer(player);
@@ -86,28 +65,7 @@ export class Engine extends Base {
             position: { x: 500, y: 0 },
             directionFaced: Direction.Left,
             healthOffset: { x: 190, y: 100 },
-            sprites: {
-                idle: {
-                    imageSrc: 'assets/img/enemy/idle.png',
-                    flippedImageSrc: 'assets/img/enemy/idle-flipped.png',
-                    totalFrames: 8,
-                },
-                attack: {
-                    imageSrc: 'assets/img/enemy/attack-1.png',
-                    flippedImageSrc: 'assets/img/enemy/attack-1-flipped.png',
-                    totalFrames: 8,
-                },
-                takeHit: {
-                    imageSrc: 'assets/img/enemy/take-hit.png',
-                    flippedImageSrc: 'assets/img/enemy/take-hit-flipped.png',
-                    totalFrames: 4,
-                },
-                die: {
-                    imageSrc: 'assets/img/enemy/death.png',
-                    flippedImageSrc: 'assets/img/enemy/death-flipped.png',
-                    totalFrames: 5,
-                },
-            },
+            sprites: enemySprites,
             scale: 3.5,
             shouldFlip: true,
         });

@@ -1,12 +1,14 @@
 import { Sprite, SpriteProps } from "game/sprite";
 import { 
-    Colour, 
     Coords, 
     DirectionFaced, 
     SpriteAnimation, 
+} from "utils/sprite";
+import {
+    Colour, 
     defaultAttackDamage, 
     defaultHealth,
-} from "utils";
+} from "utils/constants";
 
 export type FighterProps = {
     directionFaced: DirectionFaced;
