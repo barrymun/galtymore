@@ -193,13 +193,16 @@ export class Fighter extends Sprite {
         this.switchSpriteState('attack');
     };
 
-    public takeHit = (damage: number): void => {
-        this.setHealth(this.getHealth() - damage);
-
+    public takeHit = async (damage: number): Promise<void> => {
         if (this.isDying()) {
             this.switchSpriteState('die');
         } else {
             this.switchSpriteState('takeHit');
+        }
+
+        for (let i = 0; i < damage; i++) {
+            await new Promise((resolve) => setTimeout(resolve, 20));
+            this.setHealth(this.getHealth() - 1);
         }
     };
 
@@ -247,7 +250,7 @@ export class Fighter extends Sprite {
         this.getContext().roundRect(
             this.getPosition().x + this.getHealthBarOffset().x,
             this.getPosition().y + this.getHealthBarOffset().y,
-            this.healthBarWidth,
+            this.healthBarWidth * (this.getHealth() / 100),
             this.healthBarHeight,
             [0, 2, 2, 0],
         );

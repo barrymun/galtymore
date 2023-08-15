@@ -29,3 +29,4 @@ export enum Direction {
 }
 export const defaultHealth: number = 100;
 export const defaultAttackDamage: number = 20;
+// export const defaultAttackDamage: number = 100;
