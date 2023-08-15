@@ -194,15 +194,15 @@ export class Fighter extends Sprite {
     };
 
     public takeHit = async (damage: number): Promise<void> => {
-        if (this.isDying()) {
-            this.switchSpriteState('die');
-        } else {
-            this.switchSpriteState('takeHit');
-        }
-
+        this.switchSpriteState('takeHit');
+        
         for (let i = 0; i < damage; i++) {
             await new Promise((resolve) => setTimeout(resolve, 20));
             this.setHealth(this.getHealth() - 1);
+        }
+
+        if (this.isDying()) {
+            this.switchSpriteState('die');
         }
     };
 
