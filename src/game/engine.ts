@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { Base } from "game/base";
 import { Fighter, FighterProps } from "game/fighter";
 import { Sprite } from "game/sprite";
-import { Colour, Direction, defaultCanvasHeight, defaultCanvasWidth, enemyKeyBindings, playerKeyBindings } from "utils";
+import { Colour, Direction, defaultCanvasHeight, defaultCanvasWidth } from "utils";
 
 export class Engine extends Base {
     private animationRequestId: number;
@@ -54,7 +54,6 @@ export class Engine extends Base {
         
         const player: Fighter = this.createFighter({
             position: { x: 20, y: 200 },
-            keyBindings: playerKeyBindings,
             directionFaced: Direction.Right,
             healthOffset: { x: 140, y: 50 },
             sprites: {
@@ -85,7 +84,6 @@ export class Engine extends Base {
         
         const enemy: Fighter = this.createFighter({
             position: { x: 500, y: 0 },
-            keyBindings: enemyKeyBindings,
             directionFaced: Direction.Left,
             healthOffset: { x: 190, y: 100 },
             sprites: {

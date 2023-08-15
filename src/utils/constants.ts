@@ -1,19 +1,5 @@
-import { KeyBindings } from "utils";
-
 export const defaultCanvasWidth: number = 1024;
 export const defaultCanvasHeight: number = 576;
-export const playerKeyBindings: KeyBindings = {
-    left: 'a',
-    right: 'd',
-    jump: 'w',
-    attack: ' ',
-};
-export const enemyKeyBindings: KeyBindings = {
-    left: 'ArrowLeft',
-    right: 'ArrowRight',
-    jump: 'ArrowUp',
-    attack: 'Enter',
-};
 export enum Colour {
     Red = 'red',
     Green = 'green',

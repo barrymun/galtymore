@@ -3,14 +3,12 @@ import {
     Colour, 
     Coords, 
     DirectionFaced, 
-    KeyBindings, 
     SpriteAnimation, 
     defaultAttackDamage, 
     defaultHealth,
 } from "utils";
 
 export type FighterProps = {
-    keyBindings: KeyBindings;
     directionFaced: DirectionFaced;
     healthOffset: Coords;
 } & SpriteProps;
@@ -47,32 +45,6 @@ export class Fighter extends Sprite {
     public readonly moveSpeed: number = 5;
 
     public readonly jumpHeight: number = 15;
-
-    private keyBindings: KeyBindings;
-
-    public getKeyBindings = (): KeyBindings => this.keyBindings;
-
-    private setKeyBindings = (keyBindings: KeyBindings): void => {
-        this.keyBindings = keyBindings;
-    };
-
-    private keys: Keys = {
-        left: {
-            pressed: false,
-        },
-        right: {
-            pressed: false,
-        },
-        jump: {
-            pressed: false,
-        },
-    };
-
-    public getKeys = (): Keys => this.keys;
-
-    private setKeys = (keys: Keys): void => {
-        this.keys = keys;
-    };
 
     private isAttacking: boolean = false;
 
@@ -122,9 +94,8 @@ export class Fighter extends Sprite {
         this.isDead = isDead;
     };
     
-    constructor({ keyBindings, directionFaced, healthOffset, ...spriteProps }: FighterProps) {
+    constructor({ directionFaced, healthOffset, ...spriteProps }: FighterProps) {
         super(spriteProps);
-        this.setKeyBindings(keyBindings);
         this.setDirectionFaced(directionFaced);
         this.setHealthBarOffset(healthOffset);
         this.bindListeners();
