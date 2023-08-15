@@ -1,7 +1,7 @@
 export abstract class Base {
     public readonly canvas = document.getElementById('c')! as HTMLCanvasElement;
 
-    public readonly attackBtn = document.getElementById('attack')! as HTMLButtonElement;
+    public readonly fightBtn = document.getElementById('fight')! as HTMLButtonElement;
     
     public readonly gameOverDialog = document.getElementById('game-over-dialog')! as HTMLDialogElement;
     

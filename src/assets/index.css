@@ -14,9 +14,9 @@
     display: flex;
 }
 
-#attack {
+#fight {
 }
 
-#attack:hover {
+#fight:hover {
     cursor: pointer;
 }
