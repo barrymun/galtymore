@@ -179,13 +179,33 @@ export class Fighter extends Sprite {
         }
     };
 
-    public update = (): void => {
-        this.draw();
+    private drawHealthBar = (): void => {
+        this.getContext().beginPath();
+        this.getContext().fillStyle = Colour.Green;
+        this.getContext().roundRect(
+            this.getPosition().x + this.getHealthBarOffset().x,
+            this.getPosition().y + this.getHealthBarOffset().y,
+            this.healthBarWidth * (this.getHealth() / 100),
+            this.healthBarHeight,
+            [0, 2, 2, 0],
+        );
+        this.getContext().fill();
+        this.getContext().closePath();
+        
+        this.getContext().beginPath();
+        this.getContext().strokeStyle = Colour.Grey;
+        this.getContext().roundRect(
+            this.getPosition().x + this.getHealthBarOffset().x,
+            this.getPosition().y + this.getHealthBarOffset().y,
+            this.healthBarWidth,
+            this.healthBarHeight,
+            [0, 2, 2, 0],
+        );
+        this.getContext().stroke();
+        this.getContext().closePath();
+    };
 
-        if (!this.getIsDead()) {
-            this.animateFrames();
-        }
-
+    private drawHealthBarInfo = (): void => {
         this.getContext().beginPath();
         this.getContext().fillStyle = Colour.Grey;
         this.getContext().roundRect(
@@ -217,31 +237,17 @@ export class Fighter extends Sprite {
         );
         this.getContext().stroke();
         this.getContext().closePath();
-        
-        this.getContext().beginPath();
-        this.getContext().fillStyle = Colour.Green;
-        this.getContext().roundRect(
-            this.getPosition().x + this.getHealthBarOffset().x,
-            this.getPosition().y + this.getHealthBarOffset().y,
-            this.healthBarWidth * (this.getHealth() / 100),
-            this.healthBarHeight,
-            [0, 2, 2, 0],
-        );
-        this.getContext().fill();
-        this.getContext().closePath();
-        
-        this.getContext().beginPath();
-        this.getContext().strokeStyle = Colour.Grey;
-        this.getContext().roundRect(
-            this.getPosition().x + this.getHealthBarOffset().x,
-            this.getPosition().y + this.getHealthBarOffset().y,
-            this.healthBarWidth,
-            this.healthBarHeight,
-            [0, 2, 2, 0],
-        );
-        this.getContext().stroke();
-        this.getContext().closePath();
+    };
 
+    public update = (): void => {
+        this.draw();
+        this.drawHealthBar();
+        this.drawHealthBarInfo();
+
+        if (!this.getIsDead()) {
+            this.animateFrames();
+        }
+        
         this.switchSpriteState('idle');
     };
 
