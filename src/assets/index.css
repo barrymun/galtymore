@@ -2,7 +2,7 @@
     position: relative;
 }
 
-#main-menu {
+.menu {
     position: absolute;
     bottom: 0;
     height: 10%;
@@ -14,7 +14,12 @@
     display: flex;
 }
 
+#fight-menu[data-fight-menu="false"] {
+    display: none;
+}
+
 #fight {
+    background-color: red;
 }
 
 #fight:hover {
