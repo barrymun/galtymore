@@ -3,7 +3,7 @@ import {
     Coords, 
     DirectionFaced, 
     SpriteAnimation, 
-} from "utils/sprite";
+} from "utils/types";
 import {
     Colour, 
     defaultAttackDamage, 

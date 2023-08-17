@@ -18,6 +18,10 @@
     display: none;
 }
 
+#fight-menu[data-fight-menu="false"] {
+    display: none;
+}
+
 #fight {
     background-color: red;
 }

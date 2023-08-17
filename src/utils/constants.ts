@@ -1,4 +1,4 @@
-import { Sprites } from "utils/sprite";
+import { Sprites } from "utils/types";
 
 export const defaultCanvasWidth: number = 1024;
 

@@ -26,3 +26,14 @@ export type Sprites = {
         totalFrames: number;
     };
 };
+
+export type Menu = 'hideMenu' | 'mainMenu' | 'fightMenu';
+
+export type AttackButtons = 'attack-1' | 'attack-2' | 'attack-3' | 'attack-4';
+
+export type AttackButtonMapping = {
+    [key in AttackButtons]: {
+        selector: HTMLButtonElement;
+        listener: (() => void) | undefined;
+    };
+};

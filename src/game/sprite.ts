@@ -1,5 +1,5 @@
 import { Base } from "game/base";
-import { Coords, SpriteAnimation, Sprites } from "utils/sprite";
+import { Coords, SpriteAnimation, Sprites } from "utils/types";
 
 interface BaseSpriteProps {
     position: Coords; 

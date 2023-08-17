@@ -4,6 +4,7 @@ import { Base } from "game/base";
 import { Fighter, FighterProps } from "game/fighter";
 import { Sprite } from "game/sprite";
 import { Colour, Direction, defaultCanvasWidth, enemySprites, playerSprites } from "utils/constants";
+import { Menu } from "utils/types";
 
 export class Engine extends Base {
     private animationRequestId: number;
@@ -148,14 +149,39 @@ export class Engine extends Base {
         this.checkGameOver();
     };
 
+    private toggleMenu = (menu: Menu): void => {
+        switch (menu) {
+            case 'hideMenu':
+                this.mainMenu.dataset.mainMenu = "false";
+                this.fightMenu.dataset.fightMenu = "false";
+                break;
+            case 'mainMenu':
+                this.mainMenu.dataset.mainMenu = "true";
+                this.fightMenu.dataset.fightMenu = "false";
+                break;
+            case 'fightMenu':
+                this.mainMenu.dataset.mainMenu = "false";
+                this.fightMenu.dataset.fightMenu = "true";
+                break;
+            default:
+                break;
+        };
+    };
+
     private handleGameOverBtnClick = (): void => {
         this.destroy();
         window.location.reload();
     };
 
-    private handleAttackBtnClick = (): void => {
+    private handleFightBtnClick = (): void => {
+        this.toggleMenu('fightMenu');
+    };
+
+    private handleAttackBtnClick = async (): Promise<void> => {
+        this.toggleMenu('hideMenu');
         this.getPlayer().attack();
-        this.getEnemy().takeHit(this.getPlayer().getDamage());
+        await this.getEnemy().takeHit(this.getPlayer().getDamage());
+        this.toggleMenu('mainMenu');
     };
 
     private handleUnload = (_event: Event) => {
@@ -164,7 +190,8 @@ export class Engine extends Base {
 
     private bindListeners = (): void => {
         this.gameOverBtn.addEventListener('click', this.handleGameOverBtnClick);
-        this.fightBtn.addEventListener('click', this.handleAttackBtnClick);
+        this.fightBtn.addEventListener('click', this.handleFightBtnClick);
+        this.attackBtns['attack-1'].selector.addEventListener('click', this.handleAttackBtnClick);
         
         window.addEventListener('resize', this.setCanvasSize);
         window.addEventListener('unload', this.handleUnload);
@@ -172,7 +199,8 @@ export class Engine extends Base {
 
     private destroy = (): void => {
         this.gameOverBtn.removeEventListener('click', this.handleGameOverBtnClick);
-        this.fightBtn.removeEventListener('click', this.handleAttackBtnClick);
+        this.fightBtn.removeEventListener('click', this.handleFightBtnClick);
+        this.attackBtns['attack-1'].selector.removeEventListener('click', this.handleAttackBtnClick);
         
         window.removeEventListener('resize', this.setCanvasSize);
         window.removeEventListener('unload', this.handleUnload);
