@@ -191,7 +191,8 @@ export class Engine extends Base {
     private bindListeners = (): void => {
         this.gameOverBtn.addEventListener('click', this.handleGameOverBtnClick);
         this.fightBtn.addEventListener('click', this.handleFightBtnClick);
-        this.attackBtns['attack-1'].selector.addEventListener('click', this.handleAttackBtnClick);
+        this.attackBtn1.addEventListener('click', this.handleAttackBtnClick);
+        this.attackBtn1.innerHTML = 'Attack 1';
         
         window.addEventListener('resize', this.setCanvasSize);
         window.addEventListener('unload', this.handleUnload);
@@ -200,7 +201,7 @@ export class Engine extends Base {
     private destroy = (): void => {
         this.gameOverBtn.removeEventListener('click', this.handleGameOverBtnClick);
         this.fightBtn.removeEventListener('click', this.handleFightBtnClick);
-        this.attackBtns['attack-1'].selector.removeEventListener('click', this.handleAttackBtnClick);
+        this.attackBtn1.removeEventListener('click', this.handleAttackBtnClick);
         
         window.removeEventListener('resize', this.setCanvasSize);
         window.removeEventListener('unload', this.handleUnload);
