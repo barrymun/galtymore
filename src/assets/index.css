@@ -26,6 +26,6 @@
     background-color: red;
 }
 
-#fight:hover {
+button:hover {
     cursor: pointer;
 }
