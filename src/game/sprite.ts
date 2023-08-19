@@ -116,7 +116,7 @@ export class Sprite extends Base {
         sprites,
         scale = 1, 
         totalFrames = 1, 
-        heldFrames = 10,
+        heldFrames = 8,
         offset = { x: 0, y: 0 },
         shouldFlip = false,
     }: SpriteProps) {
