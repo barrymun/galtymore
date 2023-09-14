@@ -2,184 +2,183 @@ import { Base } from "game/base";
 import { Coords, SpriteAnimation, Sprites } from "utils/types";
 
 interface BaseSpriteProps {
-    position: Coords; 
-    totalFrames?: number;
-    scale?: number;
-    heldFrames?: number;
-    offset?: Coords;
-    shouldFlip?: boolean;
-};
+  position: Coords;
+  totalFrames?: number;
+  scale?: number;
+  heldFrames?: number;
+  offset?: Coords;
+  shouldFlip?: boolean;
+}
 
 type ImageSprites = {
-    [key in SpriteAnimation]: {
-        image: HTMLImageElement;
-        flippedImage: HTMLImageElement;
-        totalFrames: number;
-    };
+  [key in SpriteAnimation]: {
+    image: HTMLImageElement;
+    flippedImage: HTMLImageElement;
+    totalFrames: number;
+  };
 };
 
 export type SpriteProps =
-    | { imageSrc: string; sprites?: never; } & BaseSpriteProps
-    | { sprites: Sprites; imageSrc?: never; } & BaseSpriteProps
-;
+  | ({ imageSrc: string; sprites?: never } & BaseSpriteProps)
+  | ({ sprites: Sprites; imageSrc?: never } & BaseSpriteProps);
 
 export class Sprite extends Base {
-    public readonly width: number = 50;
-    
-    public readonly height: number = 150;
-    
-    private position: Coords;
+  public readonly width: number = 50;
 
-    public getPosition = (): Coords => this.position;
+  public readonly height: number = 150;
 
-    protected setPosition = (position: Coords): void => {
-        this.position = position;
-    };
+  private position: Coords;
 
-    private image: HTMLImageElement;
+  public getPosition = (): Coords => this.position;
 
-    public getImage = (): HTMLImageElement => this.image;
+  protected setPosition = (position: Coords): void => {
+    this.position = position;
+  };
 
-    protected setImage = (imageSrc: string): void => {
-        const image = new Image();
-        image.src = imageSrc;
-        this.image = image;
-    };
+  private image: HTMLImageElement;
 
-    private sprites: ImageSprites | undefined;
+  public getImage = (): HTMLImageElement => this.image;
 
-    public getSprites = (): ImageSprites => this.sprites;
+  protected setImage = (imageSrc: string): void => {
+    const image = new Image();
+    image.src = imageSrc;
+    this.image = image;
+  };
 
-    protected setSprites = (sprites: ImageSprites): void => {
-        this.sprites = sprites;
-    };
+  private sprites: ImageSprites | undefined;
 
-    private scale: number;
+  public getSprites = (): ImageSprites => this.sprites;
 
-    public getScale = (): number => this.scale;
+  protected setSprites = (sprites: ImageSprites): void => {
+    this.sprites = sprites;
+  };
 
-    private setScale = (scale: number): void => {
-        this.scale = scale;
-    };
+  private scale: number;
 
-    private totalFrames: number;
+  public getScale = (): number => this.scale;
 
-    public getTotalFrames = (): number => this.totalFrames;
+  private setScale = (scale: number): void => {
+    this.scale = scale;
+  };
 
-    protected setTotalFrames = (totalFrames: number): void => {
-        this.totalFrames = totalFrames;
-    };
+  private totalFrames: number;
 
-    private currentFrame: number = 0;
+  public getTotalFrames = (): number => this.totalFrames;
 
-    public getCurrentFrame = (): number => this.currentFrame;
+  protected setTotalFrames = (totalFrames: number): void => {
+    this.totalFrames = totalFrames;
+  };
 
-    protected setCurrentFrame = (currentFrame: number): void => {
-        this.currentFrame = currentFrame;
-    };
+  private currentFrame: number = 0;
 
-    private elapsedFrames: number = 0;
+  public getCurrentFrame = (): number => this.currentFrame;
 
-    public getElapsedFrames = (): number => this.elapsedFrames;
+  protected setCurrentFrame = (currentFrame: number): void => {
+    this.currentFrame = currentFrame;
+  };
 
-    private setElapsedFrames = (elapsedFrames: number): void => {
-        this.elapsedFrames = elapsedFrames;
-    };
+  private elapsedFrames: number = 0;
 
-    private heldFrames: number;
+  public getElapsedFrames = (): number => this.elapsedFrames;
 
-    public getHeldFrames = (): number => this.heldFrames;
+  private setElapsedFrames = (elapsedFrames: number): void => {
+    this.elapsedFrames = elapsedFrames;
+  };
 
-    private setHeldFrames = (heldFrames: number): void => {
-        this.heldFrames = heldFrames;
-    };
+  private heldFrames: number;
 
-    private offset: Coords;
+  public getHeldFrames = (): number => this.heldFrames;
 
-    public getOffset = (): Coords => this.offset;
+  private setHeldFrames = (heldFrames: number): void => {
+    this.heldFrames = heldFrames;
+  };
 
-    private setOffset = (offset: Coords): void => {
-        this.offset = offset;
-    };
+  private offset: Coords;
 
-    private shouldFlip: boolean = false;
+  public getOffset = (): Coords => this.offset;
 
-    public getShouldFlip = (): boolean => this.shouldFlip;
+  private setOffset = (offset: Coords): void => {
+    this.offset = offset;
+  };
 
-    public setShouldFlip = (shouldFlip: boolean): void => {
-        this.shouldFlip = shouldFlip;
+  private shouldFlip: boolean = false;
+
+  public getShouldFlip = (): boolean => this.shouldFlip;
+
+  public setShouldFlip = (shouldFlip: boolean): void => {
+    this.shouldFlip = shouldFlip;
+  };
+
+  constructor({
+    position,
+    imageSrc,
+    sprites,
+    scale = 1,
+    totalFrames = 1,
+    heldFrames = 8,
+    offset = { x: 0, y: 0 },
+    shouldFlip = false,
+  }: SpriteProps) {
+    super();
+    this.setPosition(position);
+    if (imageSrc) {
+      this.setImage(imageSrc);
+      this.setTotalFrames(totalFrames);
+    } else {
+      this.setSprites(
+        Object.keys(sprites).reduce((previous, key: SpriteAnimation) => {
+          const image = new Image();
+          image.src = sprites[key].imageSrc;
+          const flippedImage = new Image();
+          flippedImage.src = sprites[key].flippedImageSrc;
+          return {
+            ...previous,
+            [key]: {
+              totalFrames: sprites[key].totalFrames,
+              image,
+              flippedImage,
+            },
+          };
+        }, {} as ImageSprites)
+      );
+      this.setImage(this.getSprites().idle[shouldFlip ? "flippedImage" : "image"].src);
+      this.setTotalFrames(this.getSprites().idle.totalFrames);
     }
-    
-    constructor({ 
-        position, 
-        imageSrc,
-        sprites,
-        scale = 1, 
-        totalFrames = 1, 
-        heldFrames = 8,
-        offset = { x: 0, y: 0 },
-        shouldFlip = false,
-    }: SpriteProps) {
-        super();
-        this.setPosition(position);
-        if (imageSrc) {
-            this.setImage(imageSrc);
-            this.setTotalFrames(totalFrames);
-        } else {
-            this.setSprites(
-                Object.keys(sprites).reduce((previous, key: SpriteAnimation) => {
-                    const image = new Image();
-                    image.src = sprites[key].imageSrc;
-                    const flippedImage = new Image();
-                    flippedImage.src = sprites[key].flippedImageSrc;
-                    return {
-                      ...previous,
-                      [key]: {
-                        totalFrames: sprites[key].totalFrames,
-                        image,
-                        flippedImage,
-                      }
-                    };
-                  }, {} as ImageSprites)
-            );
-            this.setImage(this.getSprites().idle[shouldFlip ? 'flippedImage' : 'image'].src);
-            this.setTotalFrames(this.getSprites().idle.totalFrames);
-        }
-        this.setScale(scale);
-        this.setHeldFrames(heldFrames);
-        this.setOffset(offset);
-        this.setShouldFlip(shouldFlip);
-        console.log('Sprite loaded');
-    };
+    this.setScale(scale);
+    this.setHeldFrames(heldFrames);
+    this.setOffset(offset);
+    this.setShouldFlip(shouldFlip);
+    console.log("Sprite loaded");
+  }
 
-    public draw = (): void => {
-        this.getContext().drawImage(
-            this.getImage(),
-            this.getCurrentFrame() * this.getImage().width / this.getTotalFrames(),
-            0,
-            this.getImage().width / this.getTotalFrames(),
-            this.getImage().height,
-            this.getPosition().x - this.getOffset().x,
-            this.getPosition().y - this.getOffset().y,
-            this.getImage().width * this.getScale() / this.getTotalFrames(),
-            this.getImage().height * this.getScale() ,
-        );
-    };
+  public draw = (): void => {
+    this.getContext().drawImage(
+      this.getImage(),
+      (this.getCurrentFrame() * this.getImage().width) / this.getTotalFrames(),
+      0,
+      this.getImage().width / this.getTotalFrames(),
+      this.getImage().height,
+      this.getPosition().x - this.getOffset().x,
+      this.getPosition().y - this.getOffset().y,
+      (this.getImage().width * this.getScale()) / this.getTotalFrames(),
+      this.getImage().height * this.getScale()
+    );
+  };
 
-    protected animateFrames = (): void => {
-        this.setElapsedFrames(this.getElapsedFrames() + 1);
-        
-        if (this.getElapsedFrames() % this.getHeldFrames() === 0) {
-            if (this.getCurrentFrame() < this.getTotalFrames() - 1) {
-                this.setCurrentFrame(this.getCurrentFrame() + 1);
-            } else {
-                this.setCurrentFrame(0);
-            }
-        }
-    };
+  protected animateFrames = (): void => {
+    this.setElapsedFrames(this.getElapsedFrames() + 1);
 
-    public update = (): void => {
-        this.draw();
-        this.animateFrames();
-    };
-};
+    if (this.getElapsedFrames() % this.getHeldFrames() === 0) {
+      if (this.getCurrentFrame() < this.getTotalFrames() - 1) {
+        this.setCurrentFrame(this.getCurrentFrame() + 1);
+      } else {
+        this.setCurrentFrame(0);
+      }
+    }
+  };
+
+  public update = (): void => {
+    this.draw();
+    this.animateFrames();
+  };
+}
